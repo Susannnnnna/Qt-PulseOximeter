@@ -4,7 +4,7 @@ project(HealthApp VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
+find_package(Qt6 6.4 REQUIRED COMPONENTS Core Gui Qml Quick Sql Network)
 
 qt_standard_project_setup()
 
@@ -19,26 +19,66 @@ qt_add_qml_module(appHealthApp
     RESOURCE_PREFIX /
     NO_RESOURCE_TARGET_PATH
 
-    QML_FILES qml/main.qml
+    QML_FILES
+        qml/main.qml
 
-    QML_FILES qml/sampleData/UserData.qml
-    QML_FILES qml/sampleData/ElectronicDevice.qml
+        qml/components/MyButton.qml
+        qml/components/MyListView.qml
+        qml/components/MyTextField.qml
+        qml/components/MyLabeledRadioButtons.qml
+        qml/components/MyText.qml
+        qml/components/MyNumberPad.qml
 
-    QML_FILES qml/components/MyButton.qml
-    QML_FILES qml/components/MyListView.qml
-    QML_FILES qml/components/MyTextField.qml
-    QML_FILES qml/components/FontConfig.qml
-    QML_FILES qml/components/MyLabeledRadioButtons.qml
-    QML_FILES qml/components/MyText.qml
+        qml/screens/HomeScreen.qml
+        qml/screens/SettingsScreen.qml
+        qml/screens/LoginScreen.qml
+        qml/screens/LogoutScreen.qml
+        qml/screens/TESTScreen.qml
+        qml/styles/MyStyles.qml
 
-    QML_FILES qml/screens/HomeScreen.qml
-    QML_FILES qml/screens/SettingsScreen.qml
-    QML_FILES qml/screens/UserFormScreen.qml
-    QML_FILES qml/screens/NavigationBar.qml
-    QML_FILES qml/screens/LoginScreen.qml
+        qml/screens/ExercisesScreen.qml
+        qml/screens/MealsScreen.qml
+        qml/screens/EverydayWellBeingScreen.qml
+        qml/screens/AdditionaDataScreen.qml
+        qml/screens/PulseOximeterScreen.qml
+        qml/screens/ChartsScreen.qml
+        qml/screens/KnowledgeScreen.qml
 
-    QML_FILES qml/styles/MyStyles.qml
+    SOURCES
+        src/controllers/measurementscontroller.h
+        src/controllers/measurementscontroller.cpp
+        src/controllers/mealscontroller.h
+        src/controllers/mealscontroller.cpp
+
+        src/models/measurementsmodel.h
+        src/models/measurementsmodel.cpp
+        src/models/basecrudmodel.h
+        src/models/basecrudmodel.cpp
+        src/models/mealsmodel.h
+        src/models/mealsmodel.cpp
+
+    RESOURCES
+        README.md
+
+        assets/icons/add.png
+        assets/icons/menu-bar.png
+        assets/icons/menu-bar2.png
+        assets/icons/house.png
+        assets/icons/home-page.png
+        assets/icons/smartwatch.png
+        assets/icons/smartwatch2.png
+        assets/icons/analytics.png
+        assets/icons/wellbeing.png
+        assets/icons/information.png
+        assets/icons/diet.png
+        assets/icons/additional-events.png
+        assets/icons/personal-settings.png
+        assets/icons/logout.png
+        assets/icons/yoga-pose.png
+        assets/icons/delete.png
+        assets/icons/delete2.png
 )
+
 
 # Setup QML import path for development
 list(APPEND QML_IMPORT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/qml")
@@ -56,7 +96,7 @@ set_target_properties(appHealthApp PROPERTIES
 )
 
 target_link_libraries(appHealthApp
-    PRIVATE Qt6::Quick
+    PRIVATE Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::Sql Qt6::Network
 )
 
 include(GNUInstallDirs)
