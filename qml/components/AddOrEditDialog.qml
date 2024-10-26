@@ -9,18 +9,21 @@ Dialog {
     x: (parent.width - background.width) / 2
     y: (parent.height - background.height) / 2
 
+    property var onConfirmAction
     property string buttonText: ""
     property string firstField: ""
     property string secondField: ""
+    property string firstFieldPlaceholderText: "RRRR-MM-DD HH:MM"
+    property string secondFieldPlaceholderText
     property int selectedDataId: -1
 
     background: Rectangle {
         id: backgroundRectangle
-        color: "white"
+        color: MyStyles.dialogBackgroundColor
         width: 300
         height: 190
         radius: 10
-        border.color: "green"
+        border.color: MyStyles.dialogConfirmBorderColor
         border.width: 2
     }
 
@@ -36,7 +39,7 @@ Dialog {
 
         TextField {
             id: firstFieldInput
-            placeholderText: "RRRR-MM-DD HH:MM"
+            placeholderText: firstFieldPlaceholderText
             font.pixelSize: 14
             bottomPadding: 1
             background: Rectangle {
@@ -45,7 +48,7 @@ Dialog {
             Rectangle {
                 height: 0.5
                 width: 250
-                color: "lightgray"
+                color: MyStyles.dialogUnderlineLine
                 anchors.bottom: parent.bottom
             }
         }
@@ -57,6 +60,7 @@ Dialog {
 
         TextField {
             id: secondFieldInput
+            placeholderText: secondFieldPlaceholderText
             font.pixelSize: 14
             bottomPadding: 1
             background: Rectangle {
@@ -65,7 +69,7 @@ Dialog {
             Rectangle {
                 height: 1
                 width: 250
-                color: "lightgray"
+                color: MyStyles.dialogUnderlineLine
                 anchors.bottom: parent.bottom
             }
         }
@@ -76,22 +80,19 @@ Dialog {
             font.pixelSize: 14
             x: backgroundRectangle.width - 100
             background: Rectangle {
-                color: "#FFD700" // yellow type
-                border.color: "black"
+                color: MyStyles.buttonInnerColor
+                border.color: MyStyles.buttonBorderColor
                 border.width: 1
                 radius: 4
             }
 
             onClicked: {
-                addOrEditDialog.visible = false
-//                if (mode === "add") {
-//                    dataController.addData("testUser", firstFieldInput.text, secondFieldInput.text);
-//                    addDataToModel(firstFieldInput.text, secondFieldInput.text);
-//                } else {
-//                    dataController.editData(selectedDataId, firstFieldInput.text, secondFieldInput.text);
-//                    updateDataInModel(selectedDataId, firstFieldInput.text, secondFieldInput.text);
-//                }
-//                addOrEditDialog.close();
+                if (addOrEditDialog.onConfirmAction) {
+                    addOrEditDialog.onConfirmAction(selectedDataId, firstFieldInput.text, secondFieldInput.text);
+                    addOrEditDialog.visible = false;
+                } else {
+                    console.log("Action function is not set");
+                }
             }
         }
     }

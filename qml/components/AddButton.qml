@@ -20,6 +20,7 @@ Button {
     background: Rectangle {
         color: MyStyles.buttonColor
     }
+
     Image {
         source: addIcon
         width: MyStyles.iconWidth

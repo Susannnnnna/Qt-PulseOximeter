@@ -9,27 +9,17 @@ Dialog {
     x: (parent.width - background.width) / 2
     y: (parent.height - background.height) / 2
 
+    property var onDeleteConfirmed
     property string itemTextLabel: ""
-    property var dataController
-    property var dataModel
-    property int selectedDataId: -1
     property string warningIcon: "qrc:/assets/icons/warning.png"
-
-    function findDataIndexById(dataId) {
-        for (var i = 0; i < dataModel.count; i++) {
-            if (dataModel.get(i).id === dataId) {
-                return i;
-            }
-        }
-        return -1;
-    }
+    property int selectedDataId: -1
 
     background: Rectangle {
-        color: "white"
+        color: MyStyles.dialogBackgroundColor
         width: 200
         height: 175
         radius: 10
-        border.color: "#FFD700" // yellow type
+        border.color: MyStyles.dialogWarningBorderColor
         border.width: 2
     }
 
@@ -51,25 +41,21 @@ Dialog {
         }
 
         Button {
-            text: "OK"
+            text: MyStyles.buttonTextOK
             hoverEnabled: false
             font.pixelSize: 14
             x: confirmDeleteDialog.width - 50
             background: Rectangle {
-                color: "#FFD700" // yellow type
-                border.color: "black"
+                color: MyStyles.buttonInnerColor
+                border.color: MyStyles.buttonBorderColor
                 border.width: 1
                 radius: 4
             }
 
             onClicked: {
-                if (confirmDeleteDialog.selectedDataId >= 0) {
-                    var index = findDataIndexById(confirmDeleteDialog.selectedDataId);
-                    if (index >= 0) {
-                        dataController.deleteData(confirmDeleteDialog.selectedDataId);
-                        dataModel.remove(index);
-                    }
-                    confirmDeleteDialog.visible = false;
+                if (confirmDeleteDialog.onDeleteConfirmed && selectedDataId >= 0 ) {
+                    confirmDeleteDialog.onDeleteConfirmed(selectedDataId);
+                    confirmDeleteDialog.close();
                 }
             }
         }

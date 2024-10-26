@@ -87,7 +87,7 @@ ApplicationWindow {
             Rectangle {
                 width: parent.width * 0.25
                 height: 1
-                color: MyStyles.transparentColor
+                color: "transparent"
             }
 
             // Middle side header
@@ -100,7 +100,7 @@ ApplicationWindow {
                 Label {
                     id: headerLabel
                     text: mainTitle
-                    color: "black"
+                    color: MyStyles.fontColor
                     font.pointSize: 10
                     anchors.verticalCenter: parent.verticalCenter
                 }
@@ -110,7 +110,7 @@ ApplicationWindow {
             Rectangle {
                 width: parent.width * 0.25
                 height: 1
-                color: MyStyles.transparentColor
+                color: "transparent"
             }
 
             // Right side header

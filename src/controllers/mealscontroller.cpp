@@ -26,11 +26,14 @@ bool MealsController::editMeal(int id, QDateTime mealDate, const QString &meal) 
 }
 
 bool MealsController::deleteMeal(int id) {
+    qDebug() << "deleteMeal() called with id: " << id;
     bool success = m_model->deleteMeal(id);
     if (success) {
-        qDebug() << "Remove record with id: " << id;
+        qDebug() << "Record successfully deleted from database with id: " << id;
         bool removed = m_listModel->removeMealById(id);
         qDebug() << "Item removed from model: " << removed;
+    } else {
+        qDebug() << "Failed to delete record from database with id:" << id;
     }
     return success;
 }

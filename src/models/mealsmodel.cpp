@@ -15,13 +15,20 @@ MealsModel::MealsModel(QObject *parent) : BaseCrudModel(parent) {
 }
 
 bool MealsModel::addMeal(const QString &userId, QDateTime mealDate, const QString &meal) {
-    QVariantMap values;
-    QString formattedDate = mealDate.toString("yyyy-MM-dd HH:mm");
-    values[":user_id"] = userId;
-    values[":meal_date"] =  formattedDate;
-    values[":meal"] = meal;
-    return addData("INSERT INTO Meals (user_id, meal_date, meal) "
-                      "VALUES (:user_id, :meal_date, :meal)", values);
+    QSqlQuery query;
+    query.prepare("INSERT INTO Meals (user_id, meal_date, meal) VALUES (?, ?, ?)");
+    query.addBindValue(userId);
+    query.addBindValue(mealDate);
+    query.addBindValue(meal);
+    return query.exec();
+
+//    QVariantMap values;
+//    QString formattedDate = mealDate.toString("yyyy-MM-dd HH:mm");
+//    values[":user_id"] = userId;
+//    values[":meal_date"] =  formattedDate;
+//    values[":meal"] = meal;
+//    return addData("INSERT INTO Meals (user_id, meal_date, meal) "
+//                      "VALUES (:user_id, :meal_date, :meal)", values);
 }
 
 QList<QVariantMap> MealsModel::getMeals() {
@@ -29,16 +36,27 @@ QList<QVariantMap> MealsModel::getMeals() {
 }
 
 bool MealsModel::editMeal(int id, QDateTime mealDate, const QString &meal) {
-    QVariantMap values;
-    QString formattedDate = mealDate.toString("yyyy-MM-dd HH:mm");
-    values[":meal_date"] = formattedDate;
-    values[":meal"] = meal;
-    values[":id"] = id;
-    return editData("UPDATE Meals SET "
-                      "meal_date = :meal_date, "
-                      "meal = :meal, "
+    QSqlQuery query;
+    query.prepare("UPDATE Meals SET "
+                      "meal_date = ?, "
+                      "meal = ?, "
                       "modify_stamp = CURRENT_TIMESTAMP "
-                      "WHERE id = :id", values);
+                      "WHERE id = ?");
+    query.addBindValue(mealDate);
+    query.addBindValue(meal);
+    query.addBindValue(id);
+    return query.exec();
+
+//    QVariantMap values;
+//    QString formattedDate = mealDate.toString("yyyy-MM-dd HH:mm");
+//    values[":meal_date"] = formattedDate;
+//    values[":meal"] = meal;
+//    values[":id"] = id;
+//    return editData("UPDATE Meals SET "
+//                      "meal_date = :meal_date, "
+//                      "meal = :meal, "
+//                      "modify_stamp = CURRENT_TIMESTAMP "
+//                      "WHERE id = :id", values);
 }
 
 bool MealsModel::deleteMeal(int id) {

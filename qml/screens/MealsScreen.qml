@@ -8,65 +8,62 @@ Page {
     id: mealScreen
     anchors.fill: parent
 
-    function handleItemClicked(itemId, item1, item2) {
-        openEditDialog(itemId, item1, item2);
+    function addRecord(userId, mealDate, meal) {
+        console.log("Adding record:", mealDate, meal);
+        mealsController.addMeal("user_id", mealDate, meal)
     }
 
-    function openEditDialog(itemId, item1, item2) {
-        editMealDialog.selectedDataId = itemId
-        editMealDialog.firstFieldInput.text = item1
-        editMealDialog.secondFieldInput.text = item2
-        editMealDialog.visible = true
+    function editRecordById(id, mealDate, meal) {
+        console.log("Editing record:", id, mealDate, meal);
+        mealsController.editMeal(id, mealDate, meal)
+    }
+
+    function deleteRecordById(id) {
+        mealsController.deleteMeal(id);
     }
 
     background: Rectangle {
         color: MyStyles.backgroundColor
     }
 
-    // List of meals
+    // List of meals - OK
     DataList {
         id: mealsList
         dataModel: mealsListModel
-        editDataDialog: editMealDialog
-        deleteDataDialog: deleteMealDialog
-
-        onItemClicked: handleItemClicked
-        onItemDeleted: {
-            deleteMealDialog.selectedDataId = itemId;
-            deleteMealDialog.visible = true;
-        }
+        editDataDialog: addMealDialog
 
         Component.onCompleted: {
             mealsController.getMeals()
         }
+
+        deleteDataDialog: deleteMealDialog
+
+//        onItemClicked: {
+//            addEditMealDialog.selectedDataId = itemId;
+//            addEditMealDialog.firstFieldInput.text = item1;
+//            addEditMealDialog.secondFieldInput.text = item2;
+//            addEditMealDialog.visible = true;
+//        }
     }
 
-    // Add button for meals
+    // ADD button for meals
     AddButton {
         addDataDialog: addMealDialog
     }
 
-    // Confirm delete dialog for meals
-    ConfirmDeleteDialog {
-        id: deleteMealDialog
-        itemTextLabel: "meal"
-        dataController: mealsController
-        dataModel: mealsListModel
-    }
-
-    // Add meal dialog
+    // ADD meal dialog
     AddOrEditDialog {
         id: addMealDialog
         buttonText: MyStyles.buttonTextAdd
         firstField: "Date"
         secondField: "Meal"
+        onConfirmAction: mealsScreen.selectedDataId === -1 ? mealScreen.addRecord : mealScreen.editRecordById
     }
 
-    // Edit meal dialog
-    AddOrEditDialog {
-        id: editMealDialog
-        buttonText: MyStyles.buttonTextSave
-        firstField: "Date"
-        secondField: "Meal"
+    // Confirm DELETE dialog for meals - OK
+    ConfirmDeleteDialog {
+        id: deleteMealDialog
+        itemTextLabel: "meal"
+        onDeleteConfirmed: mealScreen.deleteRecordById
     }
 }

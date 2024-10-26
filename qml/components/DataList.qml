@@ -14,7 +14,7 @@ ListView {
     property string deleteIcon: "qrc:/assets/icons/delete2.png"
 
     signal itemClicked(int itemId, string item1, string item2)
-    signal itemDeleted(int itemId)
+    signal itemDeleted(int itemId) //SPRAWDZIĆ JESZCZE CZY NA PEWNO POTRZEBNE??
 
     model: dataModel
 
@@ -30,7 +30,7 @@ ListView {
             // Text left aligned (first field)
             Text {
                 text: model.item1
-                color: "black"
+                color: MyStyles.fontColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -39,7 +39,7 @@ ListView {
             // Text right aligned (second field)
             Text {
                 text: model.item2
-                color: "black"
+                color: MyStyles.fontColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 anchors.rightMargin: 100
@@ -52,6 +52,7 @@ ListView {
                     editDataDialog.firstFieldInput.text = model.item1
                     editDataDialog.secondFieldInput.text = model.item2
                     editDataDialog.selectedMealId = model.itemId
+                    editDataDialog.open();
                 }
             }
         }
