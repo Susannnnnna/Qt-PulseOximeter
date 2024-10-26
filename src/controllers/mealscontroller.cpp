@@ -8,19 +8,25 @@ bool MealsController::addMeal(const QString &userId, QDateTime mealDate, const Q
     bool success = m_model->addMeal(userId, mealDate, meal);
     if (success) {
         getMeals();
+        emit m_listModel->dataChanged();
     }
     return success;
 }
 
 void MealsController::getMeals() {
     QList<QVariantMap> meals = m_model->getMeals();
+    qDebug() << "Meals loaded: " << meals;
     m_listModel->setMeals(meals);
+    emit m_listModel->dataChanged();
 }
 
 bool MealsController::editMeal(int id, QDateTime mealDate, const QString &meal) {
+    qDebug() << "editMeal() called with id: " << id << ", mealData: " << mealDate << ", meal:" << meal;
     bool success = m_model->editMeal(id, mealDate, meal);
     if (success) {
         getMeals();
+    } else {
+        qDebug() << "editMeal failed for id: " << id;
     }
     return success;
 }

@@ -3,7 +3,7 @@ import QtQuick.Controls 2.15
 import MyStyles 1.0
 
 Dialog {
-    id: addOrEditDialog
+    id: addDialog
     modal: true
     visible: false
     x: (parent.width - background.width) / 2
@@ -87,17 +87,9 @@ Dialog {
             }
 
             onClicked: {
-                if (firstFieldInput.text === "" || secondFieldInput.text === "") {
-                    console.log("Please fill in all fields.");
-                    return;
-                }
-
-                if (addOrEditDialog.onConfirmAction) {
-                    addOrEditDialog.onConfirmAction(selectedDataId, firstFieldInput.text, secondFieldInput.text); //selectedDataId,
-                    addOrEditDialog.visible = false;
-                    firstFieldInput.text = "";
-                    secondFieldInput.text = "";
-                    addOrEditDialog.selectedDataId = -1;
+                if (onConfirmAction) {
+                    onConfirmAction(firstFieldInput.text, secondFieldInput.text);
+                    addDialog.visible.false;
                 } else {
                     console.log("Action function is not set");
                 }

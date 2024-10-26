@@ -29,6 +29,8 @@ qt_add_qml_module(appHealthApp
         qml/components/AddButton.qml
         qml/components/ConfirmDeleteDialog.qml
         qml/components/AddOrEditDialog.qml
+        qml/components/EditDialog.qml
+        qml/components/AddDialog.qml
 
         qml/screens/SettingsScreen.qml
         qml/screens/LoginScreen.qml

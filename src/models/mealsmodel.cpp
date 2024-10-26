@@ -18,17 +18,9 @@ bool MealsModel::addMeal(const QString &userId, QDateTime mealDate, const QStrin
     QSqlQuery query;
     query.prepare("INSERT INTO Meals (user_id, meal_date, meal) VALUES (?, ?, ?)");
     query.addBindValue(userId);
-    query.addBindValue(mealDate);
+    query.addBindValue(mealDate.toString("yyyy-MM-dd HH:mm"));
     query.addBindValue(meal);
     return query.exec();
-
-//    QVariantMap values;
-//    QString formattedDate = mealDate.toString("yyyy-MM-dd HH:mm");
-//    values[":user_id"] = userId;
-//    values[":meal_date"] =  formattedDate;
-//    values[":meal"] = meal;
-//    return addData("INSERT INTO Meals (user_id, meal_date, meal) "
-//                      "VALUES (:user_id, :meal_date, :meal)", values);
 }
 
 QList<QVariantMap> MealsModel::getMeals() {
@@ -42,21 +34,18 @@ bool MealsModel::editMeal(int id, QDateTime mealDate, const QString &meal) {
                       "meal = ?, "
                       "modify_stamp = CURRENT_TIMESTAMP "
                       "WHERE id = ?");
-    query.addBindValue(mealDate);
+    query.addBindValue(mealDate.toString("yyyy-MM-dd HH:mm"));
     query.addBindValue(meal);
     query.addBindValue(id);
-    return query.exec();
+    qDebug() << "Executing editMeal with ID: " << id << ", Meal date: " << mealDate << ", Meal: " << meal;
 
-//    QVariantMap values;
-//    QString formattedDate = mealDate.toString("yyyy-MM-dd HH:mm");
-//    values[":meal_date"] = formattedDate;
-//    values[":meal"] = meal;
-//    values[":id"] = id;
-//    return editData("UPDATE Meals SET "
-//                      "meal_date = :meal_date, "
-//                      "meal = :meal, "
-//                      "modify_stamp = CURRENT_TIMESTAMP "
-//                      "WHERE id = :id", values);
+    bool success = query.exec();
+    if (!success) {
+        qDebug() << "Failed to edit meal: " << query.lastError().text();
+    } else {
+        qDebug() << "Meal edit successfully for ID: " << id;
+    }
+    return success;
 }
 
 bool MealsModel::deleteMeal(int id) {

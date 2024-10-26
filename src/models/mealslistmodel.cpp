@@ -32,6 +32,7 @@ void MealsListModel::setMeals(const QList<QVariantMap> &meals) {
     beginResetModel();
     m_meals = meals;
     endResetModel();
+    qDebug() << "Set meals in model: " << m_meals;
 }
 
 bool MealsListModel::removeMealById(int id) {

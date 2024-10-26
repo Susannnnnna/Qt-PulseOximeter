@@ -18,7 +18,7 @@ Button {
     highlighted: false
 
     background: Rectangle {
-        color: MyStyles.buttonColor
+        color: "transparent"
     }
 
     Image {

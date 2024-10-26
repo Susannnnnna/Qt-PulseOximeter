@@ -8,13 +8,11 @@ ListView {
     width: parent.width
     height: parent.height
 
+    property var addDataDialog
     property var editDataDialog
     property var deleteDataDialog
     property var dataModel: ListModel
     property string deleteIcon: "qrc:/assets/icons/delete2.png"
-
-    signal itemClicked(int itemId, string item1, string item2)
-    signal itemDeleted(int itemId) //SPRAWDZIĆ JESZCZE CZY NA PEWNO POTRZEBNE??
 
     model: dataModel
 
@@ -29,7 +27,7 @@ ListView {
 
             // Text left aligned (first field)
             Text {
-                text: model.item1
+                text: model.item1 ? model.item1 : "N/A"
                 color: MyStyles.fontColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
@@ -38,7 +36,7 @@ ListView {
 
             // Text right aligned (second field)
             Text {
-                text: model.item2
+                text: model.item2 ? model.item2 : "N/A"
                 color: MyStyles.fontColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
@@ -48,11 +46,23 @@ ListView {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    editDataDialog.open()
-                    editDataDialog.firstFieldInput.text = model.item1
-                    editDataDialog.secondFieldInput.text = model.item2
-                    editDataDialog.selectedMealId = model.itemId
-                    editDataDialog.open();
+                    console.log("model.itemId:", model.itemId, "model.item1:", model.item1, "model.item2:", model.item2);
+
+                    if (editDataDialog) {
+                        console.log("Opening edit dialog for ID: ", model.itemId);
+                        if (editDataDialog.firstFieldInput && editDataDialog.secondFieldInput) {
+                            editDataDialog.firstFieldInput.text = model.item1 || "";
+                            editDataDialog.secondFieldInput.text = model.item2 || "";
+                            editDataDialog.visible = true;
+                            console.log("editDataDialog:", editDataDialog);
+                            console.log("editDataDialog.firstFieldInput:", editDataDialog.firstFieldInput);
+                            console.log("editDataDialog.secondFieldInput:", editDataDialog.secondFieldInput);
+                        } else {
+                            console.log("Error: editDataDialog inputs are undefined.");
+                        }
+                    } else {
+                        console.log("Item ID or editDataDialog is indefined.");
+                    }
                 }
             }
         }

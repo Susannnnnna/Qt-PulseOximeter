@@ -3,7 +3,7 @@ import QtQuick.Controls 2.15
 import MyStyles 1.0
 
 Dialog {
-    id: addOrEditDialog
+    id: editDialog
     modal: true
     visible: false
     x: (parent.width - background.width) / 2
@@ -13,9 +13,6 @@ Dialog {
     property string buttonText: ""
     property string firstField: ""
     property string secondField: ""
-    property string firstFieldPlaceholderText: "RRRR-MM-DD HH:MM"
-    property string secondFieldPlaceholderText
-    property int selectedDataId: -1
 
     background: Rectangle {
         id: backgroundRectangle
@@ -39,7 +36,6 @@ Dialog {
 
         TextField {
             id: firstFieldInput
-            placeholderText: firstFieldPlaceholderText
             font.pixelSize: 14
             bottomPadding: 1
             background: Rectangle {
@@ -60,7 +56,6 @@ Dialog {
 
         TextField {
             id: secondFieldInput
-            placeholderText: secondFieldPlaceholderText
             font.pixelSize: 14
             bottomPadding: 1
             background: Rectangle {
@@ -87,17 +82,10 @@ Dialog {
             }
 
             onClicked: {
-                if (firstFieldInput.text === "" || secondFieldInput.text === "") {
-                    console.log("Please fill in all fields.");
-                    return;
-                }
-
-                if (addOrEditDialog.onConfirmAction) {
-                    addOrEditDialog.onConfirmAction(selectedDataId, firstFieldInput.text, secondFieldInput.text); //selectedDataId,
-                    addOrEditDialog.visible = false;
-                    firstFieldInput.text = "";
-                    secondFieldInput.text = "";
-                    addOrEditDialog.selectedDataId = -1;
+                if (editDialog.onConfirmAction) {
+                    editDialog.onConfirmAction(firstFieldInput.text, secondFieldInput.text); //selectedDataId,
+                    editDialog.visible = false;
+                    //editDialog.selectedDataId = -1;
                 } else {
                     console.log("Action function is not set");
                 }

@@ -23,6 +23,9 @@ public:
     void setMeals(const QList<QVariantMap> &meals);
     bool removeMealById(int id);
 
+signals:
+    void dataChanged();
+
 private:
     QList<QVariantMap> m_meals;
 
