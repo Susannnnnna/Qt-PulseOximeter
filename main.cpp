@@ -3,10 +3,19 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include "src/controllers/measurementscontroller.h"
-#include "src/models/measurementsmodel.h"
+
 #include "src/controllers/mealscontroller.h"
+#include "src/controllers/measurementscontroller.h"
+#include "src/controllers/exercisescontroller.h"
+#include "src/controllers/additionaleventscontroller.h"
+#include "src/controllers/wellbeingcontroller.h"
+
 #include "src/models/mealsmodel.h"
+#include "src/models/mealslistmodel.h"
+#include "src/models/measurementsmodel.h"
+#include "src/models/exercisesmodel.h"
+#include "src/models/additionaleventsmodel.h"
+#include "src/models/wellbeingmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,7 +27,17 @@ int main(int argc, char *argv[])
     MeasurementsController measurementsController(&measurementsModel);
 
     MealsModel mealsModel;
-    MealsController mealsController(&mealsModel);
+    MealsListModel mealsListModel;
+    MealsController mealsController(&mealsModel, &mealsListModel);
+
+    ExercisesModel exercisesModel;
+    ExercisesController exercisesController(&exercisesModel);
+
+    AdditionalEventsModel additionalEventsModel;
+    AdditionalEventsController additionalEventsController(&additionalEventsModel);
+
+    WellbeingModel wellbeingModel;
+    WellbeingController wellbeingController(&wellbeingModel);
 
     QQmlApplicationEngine engine;
 
@@ -27,6 +46,10 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("measurementsController", &measurementsController);
     engine.rootContext()->setContextProperty("mealsController", &mealsController);
+    engine.rootContext()->setContextProperty("mealsListModel", &mealsListModel);
+    engine.rootContext()->setContextProperty("exercisesController", &exercisesController);
+    engine.rootContext()->setContextProperty("additionalEventsController", &additionalEventsController);
+    engine.rootContext()->setContextProperty("wellbeingController", &wellbeingController);
 
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app, [url](QObject* obj, const QUrl& objUrl) {

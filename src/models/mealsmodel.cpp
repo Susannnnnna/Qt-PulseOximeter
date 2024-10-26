@@ -6,20 +6,22 @@
 MealsModel::MealsModel(QObject *parent) : BaseCrudModel(parent) {
     createTable("CREATE TABLE IF NOT EXISTS Meals "
                 "(id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "user_id TEXT, "
                 "meal_date DATETIME, "
                 "meal TEXT, "
-                "synch BOOLEAN DEFAULT 0, "
-                "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,");
-//                "modify_stamp DATETIME DEFAULT CURRENT_TIMESTAMP)");
+                "synch BOOLEAN DEFAULT FALSE, "
+                "create_stamp DATETIME DEFAULT CURRENT_TIMESTAMP,"
+                "modify_stamp DATETIME)");
 }
 
-bool MealsModel::addMeal(QDateTime mealDate, const QString &meal) {
+bool MealsModel::addMeal(const QString &userId, QDateTime mealDate, const QString &meal) {
     QVariantMap values;
-    QString formattedMealDate = mealDate.toString("yyyy-MM-dd HH:mm");
-    values[":meal_date"] =  formattedMealDate;
+    QString formattedDate = mealDate.toString("yyyy-MM-dd HH:mm");
+    values[":user_id"] = userId;
+    values[":meal_date"] =  formattedDate;
     values[":meal"] = meal;
-    return addData("INSERT INTO Meals (meal_date, meal) "
-                      "VALUES (:meal_date, :meal)", values);
+    return addData("INSERT INTO Meals (user_id, meal_date, meal) "
+                      "VALUES (:user_id, :meal_date, :meal)", values);
 }
 
 QList<QVariantMap> MealsModel::getMeals() {
@@ -28,12 +30,14 @@ QList<QVariantMap> MealsModel::getMeals() {
 
 bool MealsModel::editMeal(int id, QDateTime mealDate, const QString &meal) {
     QVariantMap values;
-    QString formattedMealDate = mealDate.toString("yyyy-MM-dd HH:mm");
-    values[":meal_date"] = formattedMealDate;
+    QString formattedDate = mealDate.toString("yyyy-MM-dd HH:mm");
+    values[":meal_date"] = formattedDate;
     values[":meal"] = meal;
     values[":id"] = id;
     return editData("UPDATE Meals SET "
-                      "meal_date = :meal_date, meal = :meal"
+                      "meal_date = :meal_date, "
+                      "meal = :meal, "
+                      "modify_stamp = CURRENT_TIMESTAMP "
                       "WHERE id = :id", values);
 }
 

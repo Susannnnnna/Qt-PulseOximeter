@@ -22,14 +22,14 @@ qt_add_qml_module(appHealthApp
     QML_FILES
         qml/main.qml
 
-        qml/components/MyButton.qml
-        qml/components/MyListView.qml
-        qml/components/MyTextField.qml
-        qml/components/MyLabeledRadioButtons.qml
-        qml/components/MyText.qml
         qml/components/MyNumberPad.qml
+        qml/components/TabButtonFooter.qml
+        qml/components/ImageIcons.qml
+        qml/components/DataList.qml
+        qml/components/AddButton.qml
+        qml/components/ConfirmDeleteDialog.qml
+        qml/components/AddOrEditDialog.qml
 
-        qml/screens/HomeScreen.qml
         qml/screens/SettingsScreen.qml
         qml/screens/LoginScreen.qml
         qml/screens/LogoutScreen.qml
@@ -49,6 +49,12 @@ qt_add_qml_module(appHealthApp
         src/controllers/measurementscontroller.cpp
         src/controllers/mealscontroller.h
         src/controllers/mealscontroller.cpp
+        src/controllers/exercisescontroller.h
+        src/controllers/exercisescontroller.cpp
+        src/controllers/wellbeingcontroller.h
+        src/controllers/wellbeingcontroller.cpp
+        src/controllers/additionaleventscontroller.h
+        src/controllers/additionaleventscontroller.cpp
 
         src/models/measurementsmodel.h
         src/models/measurementsmodel.cpp
@@ -56,6 +62,14 @@ qt_add_qml_module(appHealthApp
         src/models/basecrudmodel.cpp
         src/models/mealsmodel.h
         src/models/mealsmodel.cpp
+        src/models/exercisesmodel.h
+        src/models/exercisesmodel.cpp
+        src/models/wellbeingmodel.h
+        src/models/wellbeingmodel.cpp
+        src/models/additionaleventsmodel.h
+        src/models/additionaleventsmodel.cpp
+        src/models/mealslistmodel.h
+        src/models/mealslistmodel.cpp
 
     RESOURCES
         README.md
@@ -77,6 +91,7 @@ qt_add_qml_module(appHealthApp
         assets/icons/yoga-pose.png
         assets/icons/delete.png
         assets/icons/delete2.png
+        assets/icons/warning.png
 )
 
 

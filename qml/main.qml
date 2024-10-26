@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import MyStyles 1.0 //singleton
 import "screens"
+import "components"
 
 ApplicationWindow {
     visible: true
@@ -11,17 +12,17 @@ ApplicationWindow {
     height: 640
 
     // Screens paths
-    property string homeScreenPath:                 "screens/HomeScreen.qml"
-    property string testScreenPath:                 "screens/TESTScreen.qml"
-    property string additionaDataScreenPath:        "screens/AdditionalDataMenu.qml"
-    property string chartsScreenPath:               "screens/ChartsScreen.qml"
-    property string everydayWellBeingScreenPath:    "screens/EverydayWellBeingScreen.qml"
-    property string knowledgeScreenPath:            "screens/KnowledgeScreen.qml"
-    property string loginScreenPath:                "screens/LoginScreen.qml"
-    property string logoutScreenPath:               "screens/LogoutScreen.qml"
-    property string mealsScreenPath:                "screens/MealsScreen.qml"
-    property string pulseOximeterScreenPath:        "screens/PulseOximeterScreen.qml"
-    property string settingsScreenPath:             "screens/SettingsScreen.qml"
+    //property string homeScreenPath:                 "screens/HomeScreen.qml"
+    property string testScreenPath:                 "qrc:/qml/screens/TESTScreen.qml"
+    property string additionaDataScreenPath:        "qrc:/qml/screens/AdditionalDataMenu.qml"
+    property string chartsScreenPath:               "qrc:/qml/screens/ChartsScreen.qml"
+    property string everydayWellBeingScreenPath:    "qrc:/qml/screens/EverydayWellBeingScreen.qml"
+    property string knowledgeScreenPath:            "qrc:/qml/screens/KnowledgeScreen.qml"
+    property string loginScreenPath:                "qrc:/qml/screens/LoginScreen.qml"
+    property string logoutScreenPath:               "qrc:/qml/screens/LogoutScreen.qml"
+    property string mealsScreenPath:                "qrc:/qml/screens/MealsScreen.qml"
+    property string pulseOximeterScreenPath:        "qrc:/qml/screens/PulseOximeterScreen.qml"
+    property string settingsScreenPath:             "qrc:/qml/screens/SettingsScreen.qml"
 
     // Menus titles
     property string mainTitle:                  "Healthy Diary"
@@ -70,12 +71,8 @@ ApplicationWindow {
                 hoverEnabled: false
                 highlighted: false
 
-                Image {
-                    source: sideMenuIcon
-                    width: MyStyles.iconWidth
-                    height: MyStyles.iconHeight
-                    anchors.verticalCenter: parent.verticalCenter
-                }
+                ImageIcons { iconPath: sideMenuIcon }
+
                 anchors.verticalCenter: parent.verticalCenter
                 onClicked: {
                     if (drawer.visible) {
@@ -98,14 +95,7 @@ ApplicationWindow {
                 spacing: 5
                 anchors.centerIn: parent
 
-                Image {
-                    id: dynamicHeaderIcon
-                    visible: false
-                    source: ""
-                    width: MyStyles.iconWidth
-                    height: MyStyles.iconHeight
-                    anchors.verticalCenter: parent.verticalCenter
-                }
+                ImageIcons { id: dynamicHeaderIcon }
 
                 Label {
                     id: headerLabel
@@ -131,19 +121,15 @@ ApplicationWindow {
                 hoverEnabled: false
                 highlighted: false
 
-                Image {
-                    source: homeIcon
-                    width: (MyStyles.iconWidth * 2) / 3
-                    height: (MyStyles.iconHeight * 2) / 3
-                    anchors.centerIn: parent
-                }
+                ImageIcons { iconPath: homeIcon }
+
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
                 onClicked: {
                     dynamicHeaderIcon.visible = false
                     headerLabel.text = mainTitle
                     homeButton.visible = false
-                    stackView.push(homeScreenPath)
+                    stackView.push(chartsScreenPath)
                     footer.visible = true
                 }
             }
@@ -169,64 +155,88 @@ ApplicationWindow {
             width: parent.width
             height: parent.height
             model: [
+                settingsTitle,
                 exerciseTitle,
                 mealsTitle,
                 everydayWellBeingTitle,
                 additionalEventsTitle,
-                settingsTitle,
                 logoutTitle]
+
             delegate: ItemDelegate {
+                width: parent.width
+                height: 50
+
                 text: modelData
-                onClicked: {
-                    drawer.close()
-                    if (modelData === exerciseTitle) {
-                        dynamicHeaderIcon.visible = true
-                        dynamicHeaderIcon.source = exerciseIcon
-                        homeButton.visible = true
-                        headerLabel.text = ""
-                        stackView.push(testScreenPath) //CHANGE
-                        footer.visible = false
-                    } else if (modelData === mealsTitle) {
-                        dynamicHeaderIcon.visible = true
-                        dynamicHeaderIcon.source = foodIcon
-                        homeButton.visible = true
-                        headerLabel.text = ""
-                        stackView.push(mealsScreenPath)
-                        footer.visible = false
-                    } else if (modelData === everydayWellBeingTitle) {
-                        dynamicHeaderIcon.visible = true
-                        dynamicHeaderIcon.source = wellbeingIcon
-                        homeButton.visible = true
-                        headerLabel.text = ""
-                        homeButton.visible = true
-                        stackView.push(testScreenPath) //CHANGE
-                        footer.visible = false
-                    } else if (modelData === additionalEventsTitle) {
-                        dynamicHeaderIcon.visible = true
-                        dynamicHeaderIcon.source = additionalEventsIcon
-                        homeButton.visible = true
-                        headerLabel.text = ""
-                        homeButton.visible = true
-                        stackView.push(testScreenPath) //CHANGE
-                        footer.visible = false
-                    } else if (modelData === settingsTitle) {
-                        dynamicHeaderIcon.visible = true
-                        dynamicHeaderIcon.source = settingsIcon
-                        homeButton.visible = true
-                        headerLabel.text = ""
-                        homeButton.visible = true
-                        stackView.push(testScreenPath) //CHANGE
-                        footer.visible = false
-                    } else if (modelData === logoutTitle) {
-                        dynamicHeaderIcon.visible = true
-                        dynamicHeaderIcon.source = logoutIcon
-                        homeButton.visible = true
-                        headerLabel.text = ""
-                        homeButton.visible = true
-                        stackView.push(testScreenPath) //CHANGE
-                        footer.visible = false
-                    } else {
-                        stackView.push(homeScreenPath, { category: modelData })
+                font.pointSize: 14
+
+                highlighted: false
+                hoverEnabled: false
+
+                Rectangle {
+                    width: parent.width * 0.9
+                    height: 1
+                    color: "lightgray"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.bottom
+                }
+
+                background: Rectangle {
+                    color: "transparent"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        drawer.close()
+                        if (modelData === exerciseTitle) {
+                            dynamicHeaderIcon.visible = true
+                            dynamicHeaderIcon.source = exerciseIcon
+                            homeButton.visible = true
+                            headerLabel.text = ""
+                            stackView.push(testScreenPath) //CHANGE
+                            footer.visible = false
+                        } else if (modelData === mealsTitle) {
+                            dynamicHeaderIcon.visible = true
+                            dynamicHeaderIcon.source = foodIcon
+                            homeButton.visible = true
+                            headerLabel.text = ""
+                            stackView.push(mealsScreenPath)
+                            footer.visible = false
+                        } else if (modelData === everydayWellBeingTitle) {
+                            dynamicHeaderIcon.visible = true
+                            dynamicHeaderIcon.source = wellbeingIcon
+                            homeButton.visible = true
+                            headerLabel.text = ""
+                            homeButton.visible = true
+                            stackView.push(testScreenPath) //CHANGE
+                            footer.visible = false
+                        } else if (modelData === additionalEventsTitle) {
+                            dynamicHeaderIcon.visible = true
+                            dynamicHeaderIcon.source = additionalEventsIcon
+                            homeButton.visible = true
+                            headerLabel.text = ""
+                            homeButton.visible = true
+                            stackView.push(testScreenPath) //CHANGE
+                            footer.visible = false
+                        } else if (modelData === settingsTitle) {
+                            dynamicHeaderIcon.visible = true
+                            dynamicHeaderIcon.source = settingsIcon
+                            homeButton.visible = true
+                            headerLabel.text = ""
+                            homeButton.visible = true
+                            stackView.push(testScreenPath) //CHANGE
+                            footer.visible = false
+                        } else if (modelData === logoutTitle) {
+                            dynamicHeaderIcon.visible = true
+                            dynamicHeaderIcon.source = logoutIcon
+                            homeButton.visible = true
+                            headerLabel.text = ""
+                            homeButton.visible = true
+                            stackView.push(testScreenPath) //CHANGE
+                            footer.visible = false
+                        } else {
+                            stackView.push(chartsScreenPath, { category: modelData })
+                        }
                     }
                 }
             }
@@ -236,7 +246,7 @@ ApplicationWindow {
     StackView {
         id: stackView
         anchors.fill: parent
-        initialItem: Qt.resolvedUrl(homeScreenPath)
+        initialItem: Qt.resolvedUrl(chartsScreenPath)
 
         onCurrentItemChanged:
             tabBar.visible = !(stackView.currentItem instanceof HomeScreen)
@@ -250,78 +260,22 @@ ApplicationWindow {
             color: MyStyles.footerColor
         }
 
-        TabButton {
+        TabButtonFooter {
             id: chartsTab
-
-            contentItem: Column {
-                spacing: 0
-                Image {
-                    source: chartsIcon
-                    width: MyStyles.iconWidth - 5
-                    height: MyStyles.iconHeight - 5
-                    anchors.centerIn: parent
-                }
-            }
-            Rectangle {
-                width: parent.width
-                height: 3
-                color: "green"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottom: parent.top
-            }
-            onClicked: stackView.push(testScreenPath) //CHANGE
+            stackViewPath: testScreenPath //CHANGE
+            iconPath: chartsIcon
         }
 
-        TabButton {
+        TabButtonFooter {
             id: pulseOximeterTab
-
-            contentItem: Column {
-                spacing: 0
-                Image {
-                    source: pulseOximeterIcon
-                    width: MyStyles.iconWidth - 5
-                    height: MyStyles.iconHeight - 5
-                    anchors.centerIn: parent
-                }
-            }
-            Rectangle {
-                width: parent.width
-                height: 3
-                color: "green"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottom: parent.top
-            }
-            onClicked: stackView.push(testScreenPath) //CHANGE
+            stackViewPath: testScreenPath //CHANGE
+            iconPath: pulseOximeterIcon
         }
 
-        TabButton {
+        TabButtonFooter {
             id: knowledgeTab
-
-            contentItem: Column {
-                spacing: 0
-                Image {
-                    source: konwledgeIcon
-                    width: MyStyles.iconWidth - 5
-                    height: MyStyles.iconHeight - 5
-                    anchors.centerIn: parent
-                }
-            }
-
-            Rectangle {
-                width: parent.width
-                height: 3
-                color: "green"
-                anchors.bottom: parent.top
-            }
-            onClicked: stackView.push(testScreenPath) //CHANGE
-        }
-
-        Rectangle {
-            width: parent.width
-            height: 3  // Grubość linii
-            color: "orange"
-            anchors.top: parent.top
-            z: 1  // Zwiększenie z-index, aby linia była na wierzchu
+            stackViewPath: testScreenPath //CHANGE
+            iconPath: konwledgeIcon
         }
     }
 }

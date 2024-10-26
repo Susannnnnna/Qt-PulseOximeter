@@ -1,8 +1,8 @@
 #ifndef MEALSMODEL_H
 #define MEALSMODEL_H
 
-#include "basecrudmodel.h"
 #include <QObject>
+#include "basecrudmodel.h"
 
 class MealsModel : public BaseCrudModel
 {
@@ -10,9 +10,12 @@ class MealsModel : public BaseCrudModel
 public:
     explicit MealsModel(QObject *parent = nullptr);
 
-    bool addMeal(QDateTime mealDate, const QString &meal);
+    bool addMeal(const QString &userId,
+                 QDateTime mealDate,
+                 const QString &meal);
     QList<QVariantMap> getMeals();
-    bool editMeal(int id, QDateTime mealDate, const QString &meal);
+    bool editMeal(int id, QDateTime mealDate,
+                  const QString &meal);
     bool deleteMeal(int id);
 };
 

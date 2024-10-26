@@ -1,8 +1,8 @@
 #ifndef MEASUREMENTSMODEL_H
 #define MEASUREMENTSMODEL_H
 
-#include "basecrudmodel.h"
 #include <QObject>
+#include "basecrudmodel.h"
 
 class MeasurementsModel : public BaseCrudModel
 {
@@ -10,9 +10,15 @@ class MeasurementsModel : public BaseCrudModel
 public:
     explicit MeasurementsModel(QObject *parent = nullptr);
 
-    bool addMeasurement(double spo2, double heartRate);
+    bool addMeasurement(const QString &userId,
+                        QDateTime measurementDate,
+                        double spo2,
+                        double heartRate);
     QList<QVariantMap> getMeasurements();
-    bool editMeasurement(int id, double spo2, double heartRate);
+    bool editMeasurement(int id,
+                         QDateTime measurementDate,
+                         double spo2,
+                         double heartRate);
     bool deleteMeasurement(int id);
 };
 

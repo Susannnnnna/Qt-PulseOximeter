@@ -26,6 +26,7 @@ QtObject {
 
     property string buttonTextAdd: "Add"
     property string buttonTextSave: "Save"
+    property string buttonTextOK: "OK"
 //    property string buttonTextEdit: "Edit"
 //    property string buttonTextDelete: "Delete"
 
