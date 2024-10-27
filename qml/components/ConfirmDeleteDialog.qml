@@ -11,6 +11,7 @@ Dialog {
 
     property var onDeleteConfirmed
     property string itemTextLabel: ""
+    property string itemDataLabel: ""
     property string warningIcon: "qrc:/assets/icons/warning.png"
     property int selectedDataId: -1
 
@@ -36,7 +37,7 @@ Dialog {
         }
 
         Label {
-            text: `Are you sure you want\nto delete this ${itemTextLabel}?`
+            text: `Are you sure you want\nto delete this ${itemTextLabel}: ${itemDataLabel}?`
             font.pixelSize: 16
         }
 

@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import MyStyles //singleton
 import "../components"
 
 Page {
@@ -8,165 +9,61 @@ Page {
     background: parent
 
     ListView {
-        id: listView
+        id: settingsList
         anchors.fill: parent
+
         model: ListModel {
-            ListElement { name: "Nick"; selectedOption: "nikitaS" }
-            ListElement { name: "Birth year"; selectedOption: "1994" }
-            ListElement { name: "Weight [kg]"; selectedOption: "52" }
-            ListElement { name: "Height [cm]"; selectedOption: "162" }
-            ListElement { name: "Gender"; selectedOption: "Female" }
+            ListElement { label: "Nick";        userData: "userTest" }
+            ListElement { label: "Birth year";  userData: "1994" }
+            ListElement { label: "Weight [kg]"; userData: "53" }
+            ListElement { label: "Height [cm]"; userData: "162" }
+            ListElement { label: "Gender";      userData: "Female" }
+        }
+
+        delegate: SwipeDelegate {
+            width: parent.width
+            height: MyStyles.listHeight
+
+            Rectangle {
+                width: parent.width
+                height: parent.height
+                color: MyStyles.backgroundColor
+
+                // Text left aligned (first field)
+                Text {
+                    text: model.label
+                    color: MyStyles.fontColor
+                    font.pixelSize: 16
+                    font.bold: true
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: 10
+                }
+
+                // Text right aligned (second field)
+                Text {
+                    text: model.userData
+                    color: MyStyles.fontColor
+                    font.pixelSize: 16
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: parent.right
+                    anchors.rightMargin: 10
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {}
+                }
+            }
+
+            // Bottom-line after every row in the list
+            Rectangle {
+                width: parent.width * 0.98
+                height: 1
+                color: MyStyles.listBorderColor
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: parent.bottom
+            }
         }
     }
-
-//        delegate: Item {
-//            width: listView.width
-//            height: 50
-
-//            RowLayout {
-//                anchors.fill: parent
-
-//                Text {
-//                    text: model.name
-//                    font.pointSize: 16
-//                    Layout.alignment: Qt.AlignVCenter
-//                }
-
-//                Text {
-//                    text: model.selectedOption
-//                    font.pointSize: 16
-//                    Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-//                    width: 100
-//                }
-//            }
-
-//            MouseArea {
-//                anchors.fill: parent
-//                onClicked: {
-//                    if (model.name === "Gender") {
-//                        genderSheet.open(model, index)
-//                    } else {
-//                        numPadSheet.open(model, index)  // Zmiana: wywołanie open na numPadSheet
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-//    // Modal bottom sheet for gender selection
-//    Rectangle {
-//        id: genderSheet
-//        visible: false
-//        color: "white"
-
-//        border.color: "green"
-//        border.width: 0.5
-
-//        width: parent.width
-//        height: Math.max(parent.height * 0.33, 180) // Ensure minimum height for usability
-//        radius: 10
-//        y: parent.height
-
-//        property var currentModel: null
-//        property int currentIndex: -1
-//        property string selectedGender: ""
-
-//        signal open(var model, int index)
-
-//        function showSheet() {
-//            genderSheet.visible = true
-//            genderSheet.y = parent.height - genderSheet.height
-//        }
-
-//        function hideSheet() {
-//            genderSheet.y = parent.height
-//            genderSheet.visible = false
-//        }
-
-//        Behavior on y {
-//            SpringAnimation {
-//                spring: 5
-//                damping: 0.3
-//            }
-//        }
-
-//        ColumnLayout {
-//            anchors.fill: parent
-//            anchors.margins: 10
-
-//            Text {
-//                text: "Choose gender"
-//                font.bold: true
-//                font.pointSize: 17
-//                Layout.alignment: Qt.AlignLeft
-//            }
-
-//            RadioButton {
-//                text: "Female"
-//                font.pixelSize: 15
-//                checked: selectedGender === "Female"
-//                onClicked: {
-//                    selectedGender = "Female"
-//                }
-//            }
-
-//            RadioButton {
-//                text: "Male"
-//                font.pixelSize: 15
-//                checked: selectedGender === "Male"
-//                onClicked: {
-//                    selectedGender = "Male"
-//                }
-//            }
-
-//            Button {
-//                Layout.alignment: Qt.AlignCenter
-//                background: Rectangle {
-//                    color: "green"
-//                    radius: 8
-//                    border.color: "black"
-//                    border.width: 0.5
-//                }
-//                contentItem: Text {
-//                    text: "Save"
-//                    color: "black"
-//                    font.pixelSize: 15
-//                    horizontalAlignment: Text.AlignHCenter
-//                    verticalAlignment: Text.AlignVCenter
-//                }
-//                onClicked: {
-//                    if (currentIndex >= 0 && currentModel !== null) {
-//                        listView.model.setProperty(currentIndex, "selectedOption", selectedGender);
-//                    }
-//                    genderSheet.hideSheet();
-//                }
-//            }
-//        }
-
-//        MouseArea {
-//            anchors.fill: parent
-//            onClicked: genderSheet.hideSheet()
-//        }
-
-//        onOpen: {
-//            currentModel = model
-//            currentIndex = index
-//            selectedGender = model.selectedOption; // Update the selected gender based on current model data
-//            showSheet()
-//        }
-//    }
-
-//    // Number Pad
-//    MyNumberPad {
-//        id: numPadSheet  // Identyfikator numPadSheet
-//    }
-
-//    MouseArea {
-//        anchors.fill: parent
-//        onClicked: {
-//            genderSheet.hideSheet()
-//            numPadSheet.hideSheet()  // Wywołanie hideSheet na numPadSheet
-//        }
-//        visible: genderSheet.visible || numPadSheet.visible
-//    }
 }

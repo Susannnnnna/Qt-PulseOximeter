@@ -62,8 +62,8 @@ Page {
         mealsController.getMeals();
     }
 
-    function deleteRecordById(id) {
-        mealsController.deleteMeal(id);
+    function deleteRecordById(id, meal) {
+        mealsController.deleteMeal(id, meal);
     }
 
 
@@ -139,6 +139,7 @@ Page {
     ConfirmDeleteDialog {
         id: deleteDialog
         itemTextLabel: "meal"
+        itemDataLabel: meal // POPRAWIĆ POTEM TAK, ŻEBY ZWRACAŁO NAZWĘ POSIŁKU!!!
         onDeleteConfirmed: mealScreen.deleteRecordById
     }
 

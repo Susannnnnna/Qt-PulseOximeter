@@ -1,8 +1,8 @@
 #include "wellbeingcontroller.h"
 #include "qdatetime.h"
 
-WellbeingController::WellbeingController(WellbeingModel *model, QObject *parent)
-    : QObject(parent), m_model(model){}
+WellbeingController::WellbeingController(WellbeingModel *model, WellbeingListModel *listModel, QObject *parent)
+    : QObject(parent), m_model(model), m_listModel(listModel) {}
 
 bool WellbeingController::addWellbeing(const QString &userId,
                                        QDateTime wellbeingDate,

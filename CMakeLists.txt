@@ -57,6 +57,8 @@ qt_add_qml_module(appHealthApp
         src/controllers/wellbeingcontroller.cpp
         src/controllers/additionaleventscontroller.h
         src/controllers/additionaleventscontroller.cpp
+        src/controllers/settingscontroller.h
+        src/controllers/settingscontroller.cpp
 
         src/models/measurementsmodel.h
         src/models/measurementsmodel.cpp
@@ -64,14 +66,22 @@ qt_add_qml_module(appHealthApp
         src/models/basecrudmodel.cpp
         src/models/mealsmodel.h
         src/models/mealsmodel.cpp
-        src/models/exercisesmodel.h
-        src/models/exercisesmodel.cpp
-        src/models/wellbeingmodel.h
-        src/models/wellbeingmodel.cpp
-        src/models/additionaleventsmodel.h
-        src/models/additionaleventsmodel.cpp
         src/models/mealslistmodel.h
         src/models/mealslistmodel.cpp
+        src/models/exercisesmodel.h
+        src/models/exercisesmodel.cpp
+        src/models/exerciseslistmodel.h
+        src/models/exerciseslistmodel.cpp
+        src/models/wellbeingmodel.h
+        src/models/wellbeingmodel.cpp
+        src/models/wellbeinglistmodel.h
+        src/models/wellbeinglistmodel.cpp
+        src/models/additionaleventsmodel.h
+        src/models/additionaleventsmodel.cpp
+        src/models/additionaleventslistmodel.h
+        src/models/additionaleventslistmodel.cpp
+        src/models/settingsmodel.h
+        src/models/settingsmodel.cpp
 
     RESOURCES
         README.md
@@ -94,6 +104,10 @@ qt_add_qml_module(appHealthApp
         assets/icons/delete.png
         assets/icons/delete2.png
         assets/icons/warning.png
+        assets/icons/happy.png
+        assets/icons/neutral.png
+        assets/icons/sad.png
+        assets/icons/right-arrow-angle.png
 )
 
 

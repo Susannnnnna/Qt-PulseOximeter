@@ -4,12 +4,13 @@
 #include <QObject>
 #include <QDateTime>
 #include "../models/wellbeingmodel.h"
+#include "../models/wellbeinglistmodel.h"
 
 class WellbeingController : public QObject
 {
     Q_OBJECT
 public:
-    explicit WellbeingController(WellbeingModel *model, QObject *parent = nullptr);
+    explicit WellbeingController(WellbeingModel *model, WellbeingListModel *listModel, QObject *parent = nullptr);
 
     Q_INVOKABLE bool addWellbeing(const QString &userId,
                                   QDateTime wellbeingDate,
@@ -32,7 +33,7 @@ public:
 
 private:
     WellbeingModel *m_model;
-
+    WellbeingListModel *m_listModel;
 };
 
 #endif // WELLBEINGCONTROLLER_H

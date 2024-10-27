@@ -9,13 +9,17 @@
 #include "src/controllers/exercisescontroller.h"
 #include "src/controllers/additionaleventscontroller.h"
 #include "src/controllers/wellbeingcontroller.h"
+#include "src/controllers/settingscontroller.h"
 
 #include "src/models/mealsmodel.h"
 #include "src/models/mealslistmodel.h"
 #include "src/models/measurementsmodel.h"
 #include "src/models/exercisesmodel.h"
+#include "src/models/exerciseslistmodel.h"
 #include "src/models/additionaleventsmodel.h"
+#include "src/models/additionaleventslistmodel.h"
 #include "src/models/wellbeingmodel.h"
+#include "src/models/settingsmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -31,13 +35,19 @@ int main(int argc, char *argv[])
     MealsController mealsController(&mealsModel, &mealsListModel);
 
     ExercisesModel exercisesModel;
-    ExercisesController exercisesController(&exercisesModel);
+    ExercisesListModel exercisesListModel;
+    ExercisesController exercisesController(&exercisesModel, &exercisesListModel);
 
     AdditionalEventsModel additionalEventsModel;
-    AdditionalEventsController additionalEventsController(&additionalEventsModel);
+    AdditionalEventsListModel additionalEventsListModel;
+    AdditionalEventsController additionalEventsController(&additionalEventsModel, &additionalEventsListModel);
 
     WellbeingModel wellbeingModel;
-    WellbeingController wellbeingController(&wellbeingModel);
+    WellbeingListModel wellbeingListModel;
+    WellbeingController wellbeingController(&wellbeingModel, &wellbeingListModel);
+
+    SettingsModel settingsModel;
+    SettingsController settingsController(&settingsModel);
 
     QQmlApplicationEngine engine;
 
@@ -48,8 +58,11 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("mealsController", &mealsController);
     engine.rootContext()->setContextProperty("mealsListModel", &mealsListModel);
     engine.rootContext()->setContextProperty("exercisesController", &exercisesController);
+    engine.rootContext()->setContextProperty("exercisesListModel", &exercisesListModel);
     engine.rootContext()->setContextProperty("additionalEventsController", &additionalEventsController);
+    engine.rootContext()->setContextProperty("additionalEventsListModel", &additionalEventsListModel);
     engine.rootContext()->setContextProperty("wellbeingController", &wellbeingController);
+    engine.rootContext()->setContextProperty("settingsController", &settingsController);
 
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app, [url](QObject* obj, const QUrl& objUrl) {

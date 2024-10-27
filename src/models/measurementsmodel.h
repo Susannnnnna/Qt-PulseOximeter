@@ -2,7 +2,7 @@
 #define MEASUREMENTSMODEL_H
 
 #include <QObject>
-#include "basecrudmodel.h"
+#include "src/models/basecrudmodel.h"
 
 class MeasurementsModel : public BaseCrudModel
 {

@@ -21,19 +21,10 @@ QtObject {
     // *** BUTTONS SETTINGS ***
     property color buttonInnerColor: "#FFD700" // yellow type
     property color buttonBorderColor: "black"
-//    property color buttonTextColor: "white"
-
-//    property real buttonTextFontSize: 20
-//    property real buttonWidth: 40
-//    property real buttonHeight: 40
-//    property real buttonRadius: 20
-//    property real buttonBorderWidth: 2
 
     property string buttonTextAdd: "Add"
     property string buttonTextSave: "Save"
     property string buttonTextOK: "OK"
-//    property string buttonTextEdit: "Edit"
-//    property string buttonTextDelete: "Delete"
 
     // *** LISTS SETTINGS ***
     property color listInnerColor: "transparent"

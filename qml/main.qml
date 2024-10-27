@@ -25,6 +25,7 @@ ApplicationWindow {
     property string logoutScreenPath:               "qrc:/qml/screens/LogoutScreen.qml"
     property string mealsScreenPath:                "qrc:/qml/screens/MealsScreen.qml"
     property string pulseOximeterScreenPath:        "qrc:/qml/screens/PulseOximeterScreen.qml"
+    property string exercisesScreenPath:            "qrc:/qml/screens/ExercisesScreen.qml"
     property string settingsScreenPath:             "qrc:/qml/screens/SettingsScreen.qml"
 
     // Menus titles
@@ -163,14 +164,14 @@ ApplicationWindow {
                 mealsTitle,
                 everydayWellBeingTitle,
                 additionalEventsTitle,
-                logoutTitle]
-
+                logoutTitle
+            ]
             delegate: ItemDelegate {
                 width: parent.width
                 height: 50
 
                 text: modelData
-                font.pointSize: 14
+                font.pointSize: 12
 
                 highlighted: false
                 hoverEnabled: false
@@ -191,12 +192,20 @@ ApplicationWindow {
                     anchors.fill: parent
                     onClicked: {
                         drawer.close()
-                        if (modelData === exerciseTitle) {
+                        if (modelData === settingsTitle) {
+                            dynamicHeaderIcon.visible = true
+                            dynamicHeaderIcon.source = settingsIcon
+                            homeButton.visible = true
+                            headerLabel.text = ""
+                            homeButton.visible = true
+                            stackView.push(settingsScreenPath)
+                            footer.visible = false
+                        } else if (modelData === exerciseTitle) {
                             dynamicHeaderIcon.visible = true
                             dynamicHeaderIcon.source = exerciseIcon
                             homeButton.visible = true
                             headerLabel.text = ""
-                            stackView.push(testScreenPath) //CHANGE
+                            stackView.push(exercisesScreenPath)
                             footer.visible = false
                         } else if (modelData === mealsTitle) {
                             dynamicHeaderIcon.visible = true
@@ -216,14 +225,6 @@ ApplicationWindow {
                         } else if (modelData === additionalEventsTitle) {
                             dynamicHeaderIcon.visible = true
                             dynamicHeaderIcon.source = additionalEventsIcon
-                            homeButton.visible = true
-                            headerLabel.text = ""
-                            homeButton.visible = true
-                            stackView.push(testScreenPath) //CHANGE
-                            footer.visible = false
-                        } else if (modelData === settingsTitle) {
-                            dynamicHeaderIcon.visible = true
-                            dynamicHeaderIcon.source = settingsIcon
                             homeButton.visible = true
                             headerLabel.text = ""
                             homeButton.visible = true
@@ -277,7 +278,7 @@ ApplicationWindow {
 
         TabButtonFooter {
             id: knowledgeTab
-            stackViewPath: testScreenPath //CHANGE
+            stackViewPath: knowledgeScreenPath
             iconPath: konwledgeIcon
         }
     }

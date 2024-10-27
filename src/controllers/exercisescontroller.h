@@ -4,17 +4,18 @@
 #include <QObject>
 #include <QDateTime>
 #include "../models/exercisesmodel.h"
+#include "../models/exerciseslistmodel.h"
 
 class ExercisesController : public QObject
 {
     Q_OBJECT
 public:
-    explicit ExercisesController(ExercisesModel *model, QObject *parent = nullptr);
+    explicit ExercisesController(ExercisesModel *model, ExercisesListModel *listModel, QObject *parent = nullptr);
 
     Q_INVOKABLE bool addExercise(const QString &userId,
                                  QDateTime exerciseDate,
                                  const QString &exercise);
-    Q_INVOKABLE QList<QVariantMap> getExercises();
+    Q_INVOKABLE void getExercises();
     Q_INVOKABLE bool editExercise(int id,
                                   QDateTime exerciseDate,
                                   const QString &exercise);
@@ -22,6 +23,7 @@ public:
 
 private:
     ExercisesModel *m_model;
+    ExercisesListModel *m_listModel;
 
 };
 
