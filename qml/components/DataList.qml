@@ -5,14 +5,26 @@ import "../components"
 
 ListView {
     id: dataList
-    width: parent.width
-    height: parent.height
+    anchors.fill: parent
+//    width: parent.width
+//    height: parent.height
 
     property var addDataDialog
     property var editDataDialog
     property var deleteDataDialog
     property var dataModel: ListModel
     property string deleteIcon: "qrc:/assets/icons/delete2.png"
+
+    signal editData(int itemId, string item1, string item2)
+
+    function findDataIndexById(itemId) {
+        for (var i = 0; i < dataModel.count; i++) {
+            if (dataModel.get(i).id === itemId) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     model: dataModel
 
@@ -29,39 +41,38 @@ ListView {
             Text {
                 text: model.item1 ? model.item1 : "N/A"
                 color: MyStyles.fontColor
-                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 10
                 anchors.left: parent.left
                 anchors.leftMargin: 10
+                anchors.top: parent.top
+                anchors.topMargin: 5
             }
 
             // Text right aligned (second field)
             Text {
                 text: model.item2 ? model.item2 : "N/A"
                 color: MyStyles.fontColor
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.rightMargin: 100
+                font.pixelSize: 16
+                //anchors.verticalCenter: parent.verticalCenter
+                //anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.bottomMargin: 5
             }
 
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    console.log("model.itemId:", model.itemId, "model.item1:", model.item1, "model.item2:", model.item2);
-
+                    console.log("[DataList.qml] model.itemId:", model.itemId, "model.item1:", model.item1, "model.item2:", model.item2);
+                    dataList.editData(model.itemId, model.item1, model.item2);
                     if (editDataDialog) {
-                        console.log("Opening edit dialog for ID: ", model.itemId);
-                        if (editDataDialog.firstFieldInput && editDataDialog.secondFieldInput) {
-                            editDataDialog.firstFieldInput.text = model.item1 || "";
-                            editDataDialog.secondFieldInput.text = model.item2 || "";
-                            editDataDialog.visible = true;
-                            console.log("editDataDialog:", editDataDialog);
-                            console.log("editDataDialog.firstFieldInput:", editDataDialog.firstFieldInput);
-                            console.log("editDataDialog.secondFieldInput:", editDataDialog.secondFieldInput);
-                        } else {
-                            console.log("Error: editDataDialog inputs are undefined.");
-                        }
+                        console.log("[DataList.qml] Opening edit dialog for ID: ", model.itemId);
+                        editDataDialog.selectedDataId = model.itemId;
+                        editDataDialog.visible = true;
+                        editData(model.itemId, model.item1, model.item2);
                     } else {
-                        console.log("Item ID or editDataDialog is indefined.");
+                        console.log("[DataList.qml] Error: editDataDialog is undefined.");
                     }
                 }
             }

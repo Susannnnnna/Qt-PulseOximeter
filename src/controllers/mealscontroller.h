@@ -21,6 +21,9 @@ public:
                               const QString &meal);
     Q_INVOKABLE bool deleteMeal(int id);
 
+signals:
+    void errorOccured(const QString &errorMessage);
+
 private:
     MealsModel *m_model;
     MealsListModel *m_listModel;

@@ -15,7 +15,7 @@ Below is an overview of the main components currently available in the app, alon
 | App Components | Description | Status | 
 | ----------- | ----------- | ----------- |
 | Exercise Module | Track daily physical activities. | In progress |
-| Meals Module | Log daily meals and drinks consumed. | In progress |
+| Meals Module | Log daily meals and drinks consumed. | Done |
 | Everyday Well-Being Module | Monitor overall well-being on a daily basis. | In progress |
 | Additional Events Module | Record significant health-related events. | In progress |
 | Settings Module | Manage basic user information. | In progress |

@@ -1,3 +1,6 @@
+//MealsScreen.qml is the first screen I created
+//so you will find a lot of logs there
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts

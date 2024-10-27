@@ -11,9 +11,9 @@ Dialog {
 
     property var onConfirmAction
     property string buttonText: ""
-    property string firstField: ""
-    property string secondField: ""
-    property string firstFieldPlaceholderText: "RRRR-MM-DD HH:MM"
+    property string firstFieldLabel: ""
+    property string secondFieldLabel: ""
+    property string firstFieldPlaceholderText: "YYYY-MM-DD HH:MM"
     property string secondFieldPlaceholderText
     property int selectedDataId: -1
 
@@ -21,7 +21,7 @@ Dialog {
         id: backgroundRectangle
         color: MyStyles.dialogBackgroundColor
         width: 300
-        height: 190
+        height: 200
         radius: 10
         border.color: MyStyles.dialogConfirmBorderColor
         border.width: 2
@@ -33,7 +33,7 @@ Dialog {
         spacing: 10
 
         Label {
-            text: firstField
+            text: firstFieldLabel
             font.pixelSize: 12
         }
 
@@ -41,7 +41,7 @@ Dialog {
             id: firstFieldInput
             placeholderText: firstFieldPlaceholderText
             font.pixelSize: 14
-            bottomPadding: 1
+            bottomPadding: 0
             background: Rectangle {
                 color: "transparent"
             }
@@ -54,18 +54,21 @@ Dialog {
         }
 
         Label {
-            text: secondField
+            text: secondFieldLabel
             font.pixelSize: 12
         }
 
-        TextField {
+        TextArea {
             id: secondFieldInput
             placeholderText: secondFieldPlaceholderText
             font.pixelSize: 14
-            bottomPadding: 1
-            background: Rectangle {
-                color: "transparent"
-            }
+            wrapMode: Text.Wrap
+            width: 250
+            height: 45
+            verticalAlignment: Text.AlignTop
+            horizontalAlignment: Text.AlignLeft
+            padding: 0
+            color: MyStyles.fontColor
             Rectangle {
                 height: 1
                 width: 250
@@ -87,13 +90,20 @@ Dialog {
             }
 
             onClicked: {
-                if (onConfirmAction) {
-                    onConfirmAction(firstFieldInput.text, secondFieldInput.text);
-                    addDialog.visible.false;
+                if (addDialog.onConfirmAction) {
+                    addDialog.onConfirmAction(firstFieldInput.text, secondFieldInput.text);
+                    addDialog.visible = false;
                 } else {
-                    console.log("Action function is not set");
+                    console.log("[AddDialog.qml] Action function is not set");
                 }
             }
+        }
+    }
+
+    onVisibleChanged: {
+        if (visible) {
+            firstFieldInput.text = "";
+            secondFieldInput.text = "";
         }
     }
 }
