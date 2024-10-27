@@ -9,6 +9,7 @@ This project encompasses two key components:
 The collected data is visualized in simple, intuitive charts, helping users monitor their health and spot potential abnormalities over time.
 
 ## Key results
+### **Health Tracking Application**
 Below is an overview of the main components currently available in the app, along with their development status.
 
 
@@ -24,6 +25,7 @@ Below is an overview of the main components currently available in the app, alon
 | Knowledge Module | Understand the purpose and benefits of each module. | Not ready |
 | Login / Logout Screens | Secure access with login and logout functionality. | Not ready |
 
+### **Pulse Oximeter Integration**
 
 Further details on the pulse oximeter integration will be available soon on the Instructables page.
 
@@ -48,7 +50,7 @@ Soon available...
 - C++
 - CMake 
 - QML
-- SQLite
+- SQLite (as a local database)
 
 ### Database and data
 Enter data via the app.
