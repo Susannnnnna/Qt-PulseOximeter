@@ -2,14 +2,19 @@
 #include "qdatetime.h"
 
 AdditionalEventsController::AdditionalEventsController(AdditionalEventsModel *model, AdditionalEventsListModel *listModel, QObject *parent)
-    : QObject(parent), m_model(model){}
+    : QObject(parent), m_model(model), m_listModel(listModel) {}
 
 bool AdditionalEventsController::addAdditionalEvent(const QString &userId,
                                                     QDateTime additionalEventDate,
                                                     const QString &additionalEvent) {
-    return m_model->addAdditionalEvent(userId,
+    bool success = m_model->addAdditionalEvent(userId,
                                        additionalEventDate,
                                        additionalEvent);
+    if (success) {
+        getAdditionalEvents();
+        emit m_listModel->dataChanged();
+    }
+    return success;
 }
 
 void AdditionalEventsController::getAdditionalEvents() {

@@ -15,14 +15,14 @@ Below is an overview of the main components currently available in the app, alon
 
 | App Components | Description | Status | 
 | ----------- | ----------- | ----------- |
-| Exercise Module | Track daily physical activities. | In progress |
+| Exercise Module | Track daily physical activities. | Done |
 | Meals Module | Log daily meals and drinks consumed. | Done |
 | Everyday Well-Being Module | Monitor overall well-being on a daily basis. | In progress |
-| Additional Events Module | Record significant health-related events. | In progress |
+| Additional Events Module | Record significant health-related events. | Done |
 | Settings Module | Manage basic user information. | In progress |
 | Charts Module | Visualize entered data and pulse oximeter readings. | Not ready |
 | Pulse Oximeter Module | Display pulse and SpO2 data from the connected device. | In progress |
-| Knowledge Module | Understand the purpose and benefits of each module. | Not ready |
+| Knowledge Module | Understand the purpose and benefits of each module. | In progress |
 | Login / Logout Screens | Secure access with login and logout functionality. | Not ready |
 
 ### **Pulse Oximeter Integration**

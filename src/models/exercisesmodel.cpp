@@ -26,7 +26,7 @@ bool ExercisesModel::addExercise(const QString &userId, QDateTime exerciseDate, 
 }
 
 QList<QVariantMap> ExercisesModel::getExercises() {
-    return getData("SELECT * FROM Meals");
+    return getData("SELECT * FROM Exercises");
 }
 
 bool ExercisesModel::editExercise(int id, QDateTime exerciseDate, const QString &exercise) {

@@ -17,7 +17,7 @@ ApplicationWindow {
     // Screens paths
     //property string homeScreenPath:                 "screens/HomeScreen.qml"
     property string testScreenPath:                 "qrc:/qml/screens/TESTScreen.qml"
-    property string additionaDataScreenPath:        "qrc:/qml/screens/AdditionalDataMenu.qml"
+    property string additionaEventsScreenPath:        "qrc:/qml/screens/AdditionalEventsScreen.qml"
     property string chartsScreenPath:               "qrc:/qml/screens/ChartsScreen.qml"
     property string everydayWellBeingScreenPath:    "qrc:/qml/screens/EverydayWellBeingScreen.qml"
     property string knowledgeScreenPath:            "qrc:/qml/screens/KnowledgeScreen.qml"
@@ -228,7 +228,7 @@ ApplicationWindow {
                             homeButton.visible = true
                             headerLabel.text = ""
                             homeButton.visible = true
-                            stackView.push(testScreenPath) //CHANGE
+                            stackView.push(additionaEventsScreenPath)
                             footer.visible = false
                         } else if (modelData === logoutTitle) {
                             dynamicHeaderIcon.visible = true
@@ -272,7 +272,7 @@ ApplicationWindow {
 
         TabButtonFooter {
             id: pulseOximeterTab
-            stackViewPath: testScreenPath //CHANGE
+            stackViewPath: pulseOximeterScreenPath
             iconPath: pulseOximeterIcon
         }
 

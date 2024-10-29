@@ -22,6 +22,23 @@ qt_add_qml_module(appHealthApp
     QML_FILES
         qml/main.qml
 
+        qml/styles/MyStyles.qml
+
+        qml/screens/SettingsScreen.qml
+        qml/screens/LoginScreen.qml
+        qml/screens/LogoutScreen.qml
+        qml/screens/TESTScreen.qml
+
+        qml/screens/ExercisesScreen.qml
+        qml/screens/MealsScreen.qml
+        qml/screens/EverydayWellBeingScreen.qml
+        qml/screens/AdditionalEventsScreen.qml
+        qml/screens/PulseOximeterScreen.qml
+        qml/screens/PulseOximeterDetailScreen.qml
+        qml/screens/ChartsScreen.qml
+        qml/screens/KnowledgeScreen.qml
+        qml/screens/KnowledgeDetailScreen.qml
+
         qml/components/MyNumberPad.qml
         qml/components/TabButtonFooter.qml
         qml/components/ImageIcons.qml
@@ -31,20 +48,7 @@ qt_add_qml_module(appHealthApp
         qml/components/EditDialog.qml
         qml/components/AddDialog.qml
         qml/components/ErrorDialog.qml
-
-        qml/screens/SettingsScreen.qml
-        qml/screens/LoginScreen.qml
-        qml/screens/LogoutScreen.qml
-        qml/screens/TESTScreen.qml
-        qml/styles/MyStyles.qml
-
-        qml/screens/ExercisesScreen.qml
-        qml/screens/MealsScreen.qml
-        qml/screens/EverydayWellBeingScreen.qml
-        qml/screens/AdditionaDataScreen.qml
-        qml/screens/PulseOximeterScreen.qml
-        qml/screens/ChartsScreen.qml
-        qml/screens/KnowledgeScreen.qml
+        qml/components/KnowledgeButton.qml
 
     SOURCES
         src/controllers/measurementscontroller.h
@@ -108,6 +112,8 @@ qt_add_qml_module(appHealthApp
         assets/icons/neutral.png
         assets/icons/sad.png
         assets/icons/right-arrow-angle.png
+
+        assets/text_files/test.html
 )
 
 

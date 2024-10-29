@@ -30,7 +30,7 @@ Page {
 
     function addRecord(userId, exerciseDate, exercise) {
         if (!isValidDateformat(exerciseDate)) {
-            errorDialog.visible = true;
+            errorExerciseDialog.visible = true;
             return;
         }
         exercisesController.addExercise("user test", exerciseDate, exercise);
@@ -39,7 +39,7 @@ Page {
 
     function editRecordById(id, exerciseDate, exercise) {
         if (!isValidDateformat(exerciseDate)) {
-            errorDialog.visible = true;
+            errorExerciseDialog.visible = true;
             return;
         }
         exercisesController.editExercise(id, exerciseDate.toString(), exercise);
@@ -62,16 +62,16 @@ Page {
         width: parent.width
         height: parent.height
         dataModel: exercisesListModel
-        addDataDialog: addDialog
-        editDataDialog: editDialog
-        deleteDataDialog: deleteDialog
+        addDataDialog: addExerciseDialog
+        editDataDialog: editExerciseDialog
+        deleteDataDialog: deleteExerciseDialog
 
         onEditData: (itemId, item1, item2) => {
             selectedDataId = itemId;
-            editDialog.selectedDataId = itemId;
-            editDialog.firstFieldInput = item1;
-            editDialog.secondFieldInput = item2;
-            editDialog.visible = true;
+            editExerciseDialog.selectedDataId = itemId;
+            editExerciseDialog.firstFieldInput = item1;
+            editExerciseDialog.secondFieldInput = item2;
+            editExerciseDialog.visible = true;
         }
 
         Component.onCompleted: {
@@ -81,36 +81,36 @@ Page {
 
     // ADD button
     AddButton {
-        addDataDialog: addDialog
+        addDataDialog: addExerciseDialog
     }
 
     // ADD dialog
     AddDialog {
-        id: addDialog
+        id: addExerciseDialog
         buttonText: MyStyles.buttonTextAdd
         firstFieldLabel: textExerciseDate
         secondFieldLabel: textExercise
         onConfirmAction: function(exerciseDate, exercise) {
             exerciseScreen.addRecord("user test", exerciseDate, exercise);
-            addDialog.close();
+            addExerciseDialog.close();
         }
     }
 
     // EDIT dialog
     EditDialog {
-        id: editDialog
+        id: editExerciseDialog
         buttonText: MyStyles.buttonTextSave
         firstFieldLabel: textExerciseDate
         secondFieldLabel: textExercise
         onConfirmAction: function(id, exerciseDate, exercise) {
             exerciseScreen.editRecordById(exerciseScreen.selectedDataId, exerciseDate, exercise);
-            editDialog.close();
+            editExerciseDialog.close();
         }
     }
 
     // Confirm DELETE dialog for
     ConfirmDeleteDialog {
-        id: deleteDialog
+        id: deleteExerciseDialog
         itemTextLabel: "exercise"
         itemDataLabel: exercise // POPRAWIĆ POTEM TAK, ŻEBY ZWRACAŁO NAZWĘ POSIŁKU!!!
         onDeleteConfirmed: exerciseScreen.deleteRecordById
@@ -118,6 +118,6 @@ Page {
 
     // ERROR dialog with validation information
     ErrorDialog {
-        id: errorDialog
+        id: errorExerciseDialog
     }
 }

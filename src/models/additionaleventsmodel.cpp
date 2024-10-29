@@ -35,7 +35,7 @@ bool AdditionalEventsModel::editAdditionalEvent(int id, QDateTime additionalEven
     values[":additional_event"] = additionalEvent;
     values[":id"] = id;
     return editData("UPDATE AdditionalEvents SET "
-                    "meal_date = :meal_date, "
+                    "additional_event_date = :additional_event_date, "
                     "additional_event = :additional_event, "
                     "modify_stamp = CURRENT_TIMESTAMP "
                     "WHERE id = :id", values);

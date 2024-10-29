@@ -1,66 +1,73 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 import MyStyles //singleton
 import "../components"
 
 Page {
+    id: page
     anchors.fill: parent
     background: parent
 
-    property string rightArrowIcon: "assets/icons/right-arrow-angle.png"
+    property alias loader: detailLoader
+    property string detailsScreenPath: "KnowledgeDetailScreen.qml"
+    property string textFilePath1: "qrc:/assets/text_files/test.html"
+    property string textFilePath2: ""
+    property string textFilePath3: ""
 
-    ListView {
-        id: knowledgeList
+    Rectangle {
         anchors.fill: parent
+        color: "transparent"
 
-        model: ListModel {
-            ListElement { description: "Knowledge 1" }
-            ListElement { description: "Knowledge 2" }
-            ListElement { description: "Knowledge 3" }
-            ListElement { description: "Knowledge 4" }
-            ListElement { description: "Knowledge 5" }
+        Column {
+            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 10
+            anchors.topMargin: 20
+
+            Text {
+                text: "Header 1"
+                font.pixelSize: 16
+                font.bold: true
+                color: "black"
+                anchors.left: parent.left
+            }
+
+            KnowledgeButton {
+                buttonText: "Wiedza 1"
+                onClicked: {
+                    stackView.push(detailsScreenPath)
+                    page.loader.onLoaded = function() {
+                        page.loader.item.loadTextFromFile(page.textFilePath1)
+                    }
+                }
+            }
+
+            KnowledgeButton {
+                buttonText: "Wiedza 2"
+                onClicked: {
+                    stackView.push(detailsScreenPath)
+                    page.loader.onLoaded = function() {
+                        page.loader.item.loadTextFromFile(page.textFilePath1)
+                    }
+                }
+            }
+
+            KnowledgeButton {
+                buttonText: "Wiedza 3"
+                onClicked: {
+                    stackView.push(detailsScreenPath)
+                    page.loader.onLoaded = function() {
+                        page.loader.item.loadTextFromFile(page.textFilePath1)
+                    }
+                }
+            }
         }
 
-        delegate: SwipeDelegate {
-            width: parent.width
-            height: MyStyles.listHeight
-
-            Rectangle {
-                width: parent.width
-                height: parent.height
-                color: MyStyles.backgroundColor
-
-                Text {
-                    text: model.label
-                    color: MyStyles.fontColor
-                    font.pixelSize: 16
-                    font.bold: true
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.leftMargin: 10
-                }
-
-                Image {
-                    source: rightArrowIcon
-                    width: 35
-                    height: 35
-                    x: knowledgeList.width - 100
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {}
-                }
-            }
-
-            // Bottom-line after every row in the list
-            Rectangle {
-                width: parent.width * 0.98
-                height: 1
-                color: MyStyles.listBorderColor
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottom: parent.bottom
-            }
+        Loader {
+            id: detailLoader
+            anchors.fill: parent
+            asynchronous: true
         }
     }
 }

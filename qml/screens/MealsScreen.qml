@@ -39,7 +39,7 @@ Page {
     function addRecord(userId, mealDate, meal) {
         if (!isValidDateformat(mealDate)) {
             console.error("[MealsScreen.qml] [function addRecord] Invalid date format. Expected format: YYYY-MM-DD HH:MM");
-            errorDialog.visible = true;
+            errorMealsDialog.visible = true;
             return;
         }
 
@@ -52,7 +52,7 @@ Page {
     function editRecordById(id, mealDate, meal) {
         if (!isValidDateformat(mealDate)) {
             console.error("[MealsScreen.qml] [function addRecord] Invalid date format. Expected format: YYYY-MM-DD HH:MM");
-            errorDialog.visible = true;
+            errorMealsDialog.visible = true;
             return;
         }
 
@@ -78,9 +78,9 @@ Page {
         width: parent.width
         height: parent.height
         dataModel: mealsListModel
-        addDataDialog: addDialog
-        editDataDialog: editDialog
-        deleteDataDialog: deleteDialog
+        addDataDialog: addMealsDialog
+        editDataDialog: editMealsDialog
+        deleteDataDialog: deleteMealsDialog
 
         onEditData: (itemId, item1, item2) => {
             selectedDataId = itemId;
@@ -88,14 +88,14 @@ Page {
                         itemId, ", Type:", typeof itemId,
                         item1, ", Type:", typeof item1,
                         item2, ", Type:", typeof item1);
-            editDialog.selectedDataId = itemId;
-            editDialog.firstFieldInput = item1;
-            editDialog.secondFieldInput = item2;
-            editDialog.visible = true;
+            editMealsDialog.selectedDataId = itemId;
+            editMealsDialog.firstFieldInput = item1;
+            editMealsDialog.secondFieldInput = item2;
+            editMealsDialog.visible = true;
             console.log("[MealsScreen.qml] [DataList] onEditData finished, print:",
-                        editDialog.selectedDataId,
-                        editDialog.firstFieldInput,
-                        editDialog.secondFieldInput);
+                        editMealsDialog.selectedDataId,
+                        editMealsDialog.firstFieldInput,
+                        editMealsDialog.secondFieldInput);
         }
 
         Component.onCompleted: {
@@ -106,30 +106,30 @@ Page {
 
     // ADD button for meals
     AddButton {
-        addDataDialog: addDialog
+        addDataDialog: addMealsDialog
     }
 
     // ADD meal dialog - OK
     AddDialog {
-        id: addDialog
+        id: addMealsDialog
         buttonText: MyStyles.buttonTextAdd
         firstFieldLabel: textMealDate
         secondFieldLabel: textMeal
         onConfirmAction: function(mealDate, meal) {
             mealScreen.addRecord("user test", mealDate, meal);
-            addDialog.close();
+            addMealsDialog.close();
         }
     }
 
     // EDIT meal dialog - OK
     EditDialog {
-        id: editDialog
+        id: editMealsDialog
         buttonText: MyStyles.buttonTextSave
         firstFieldLabel: textMealDate
         secondFieldLabel: textMeal
         onConfirmAction: function(id, mealDate, meal) {
             mealScreen.editRecordById(mealScreen.selectedDataId, mealDate, meal);
-            editDialog.close();
+            editMealsDialog.close();
             console.log("[MealsScreen.qml] [EditDialog] actions in edit dialog with:",
                         mealScreen.selectedDataId, mealDate, meal);
         }
@@ -137,7 +137,7 @@ Page {
 
     // Confirm DELETE dialog for meals - OK
     ConfirmDeleteDialog {
-        id: deleteDialog
+        id: deleteMealsDialog
         itemTextLabel: "meal"
         itemDataLabel: meal // POPRAWIĆ POTEM TAK, ŻEBY ZWRACAŁO NAZWĘ POSIŁKU!!!
         onDeleteConfirmed: mealScreen.deleteRecordById
@@ -145,6 +145,6 @@ Page {
 
     // ERROR dialog with validation information
     ErrorDialog {
-        id: errorDialog
+        id: errorMealsDialog
     }
 }
