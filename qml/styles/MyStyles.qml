@@ -3,38 +3,41 @@ import QtQuick
 
 QtObject {
     // *** GENERAL SETTINGS ***
-    property color backgroundColor: "#DDEDD7" // green type
-    property color primaryColor: "#A52A2A"
-    property color accentColor: "#FFF8DC"
-    property color generalBorderColor: "green"
-    property color footerColor: "#4DA33F" // green type
-    property string fontStyle: "Courier New"
-    property int fontSize: 16
-    property color fontColor: "black"
+    property color backgroundColor: "#090590" // darkx3 blue
+    property color linesColor:      "black"
+    property color ribbonColor:     "#0E45FC" //dark blue
+    property string fontStyle:      "Courier New"
+    property int fontSize:          16
+    property color fontColor:       "#99FFFF" // light blue
+    property string rootPath:       Qt.resolvedUrl("../../") //"file:///C:/QtProjects/BLEPulseSensor/BLEPulseSensor/"
 
-    // *** DIALOGS SETTINGS ***
-    property color dialogBackgroundColor: "white"
-    property color dialogWarningBorderColor: "#FFD700" // yellow type
-    property color dialogConfirmBorderColor: "green"
-    property color dialogUnderlineLine: "lightgray"
+    // *** CARDS PROPERIES ***
+    property color cardsBackgroundColor: "#57A4F0" // light blue
 
-    // *** BUTTONS SETTINGS ***
-    property color buttonInnerColor: "#FFD700" // yellow type
-    property color buttonBorderColor: "black"
+    // // *** DIALOGS SETTINGS ***
+    // property color dialogBackgroundColor: "white"
+    // property color dialogWarningBorderColor: "#FFD700" // yellow type
+    // property color dialogConfirmBorderColor: "green"
+    // property color dialogUnderlineLine: "lightgray"
 
-    property string buttonTextAdd: "Add"
-    property string buttonTextSave: "Save"
-    property string buttonTextOK: "OK"
+    // // *** BUTTONS SETTINGS ***
+    // property color buttonInnerColor: "#FFD700" // yellow type
+    // property color buttonBorderColor: "black"
 
-    // *** LISTS SETTINGS ***
-    property color listInnerColor: "transparent"
-    property color listBorderColor: "#8FBC8F" // green type
-    property real listWidth: 300
-    property real listHeight: 50
-    property real listRadius: 8
-    property real listBorderWidth: 0.8
+    // property string buttonTextAdd: "Add"
+    // property string buttonTextSave: "Save"
+    // property string buttonTextOK: "OK"
+
+    // // *** LISTS SETTINGS ***
+    // property color listInnerColor: "transparent"
+    // property color listBorderColor: "#8FBC8F" // green type
+    // property real listWidth: 300
+    // property real listHeight: 50
+    // property real listRadius: 8
+    // property real listBorderWidth: 0.8
 
     // *** ICONS SETTINGS ***
-    property real iconWidth: 50
-    property real iconHeight: 50
+    property real iconWidth: 30
+    property real iconHeight: 30
+
 }

@@ -1,15 +1,17 @@
 import QtQuick 2.15
-import MyStyles 1.0 //singleton
+import "../styles" //singleton
 
 Image {
     id: imageId
 
     property string iconPath
     property bool iconVisible: true
+    property real widthMultiplier: 1
+    property real heightMultiplier: 1
 
     visible: iconVisible
     source: iconPath
-    width: MyStyles.iconWidth
-    height: MyStyles.iconHeight
+    width: MyStyles.iconWidth * widthMultiplier
+    height: MyStyles.iconHeight * heightMultiplier
     anchors.verticalCenter: parent.verticalCenter
 }

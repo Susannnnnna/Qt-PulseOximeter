@@ -1,33 +1,35 @@
 <!--![app-screen]()-->
+# To Do
+Frontend
+- Dane - dodać wyświetlanie się danych na liście
+- main.qml - dodać w menu bocznym nazwy modułów
+- main.qml - dodać w menu bocznym przełączanie się na inne ekrany
+- knowledge - wyśrodkować kafelki
+- knowledge - poprawić przewijanie tak, żeby po scrollowaniu zostawało na swoim miejscu
 
-# Pulse Oximeter and Health Monitoring App
+Backend
+- 
+
+# App with Bluetooth Low Energy & Pulse Sensor
 ## Objective
 This project encompasses two key components:
-1. **Health Tracking Application**: A user-friendly app that allows individuals to record essential health-related data.
-2. **Pulse Oximeter Integration**: An electronic device that measures and collects data on pulse rate and SpO2 levels, seamlessly saving this information within the application.
-
-The collected data is visualized in simple, intuitive charts, helping users monitor their health and spot potential abnormalities over time.
+1. **Simple GUI App**: a user-friendly GUI that allow you to monitor your heart rate with extra knowledge about circulatory system and pulse
+2. **BLE & Pulse Sensor Integration**: data read from the heart rate sensor is sent to the application via the BLE module.
 
 ## Key results
 ### **Health Tracking Application**
 Below is an overview of the main components currently available in the app, along with their development status.
 
 
-| App Components | Description | Status | 
-| ----------- | ----------- | ----------- |
-| Exercise Module | Track daily physical activities. | Done |
-| Meals Module | Log daily meals and drinks consumed. | Done |
-| Everyday Well-Being Module | Monitor overall well-being on a daily basis. | In progress |
-| Additional Events Module | Record significant health-related events. | Done |
-| Settings Module | Manage basic user information. | In progress |
-| Charts Module | Visualize entered data and pulse oximeter readings. | Not ready |
-| Pulse Oximeter Module | Display pulse and SpO2 data from the connected device. | In progress |
-| Knowledge Module | Understand the purpose and benefits of each module. | In progress |
-| Login / Logout Screens | Secure access with login and logout functionality. | Not ready |
+| App Components | Module name | Description | Status | Module Main File | 
+| ----------- | ----------- | ----------- | ----------- | ----------- |
+| Current Pulse and Charts Module | BloodPressureScreen.qml | Shows current pulse and a vizualization of the pulse on a graph | In progress | PulseSensorDataScreen.qml |
+| Data Module | DataScreen.qml | Pulse and time data. | In progress | PulseSensorScreen.qml |
+| Knowledge Module | KnowledgeScreen.qml | Knowledge about circulatory system and pulse. | In progress | InformationScreen.qml |
 
-### **Pulse Oximeter Integration**
+### **Pulse Sensor and BLE Integration**
 
-Further details on the pulse oximeter integration will be available soon on the Instructables page.
+Details about the integration will be available soon on the Instructables page.
 
 ## Content
 - [App examples](./README.md#app-examples)
@@ -53,12 +55,11 @@ Soon available...
 - SQLite (as a local database)
 
 ### Database and data
-Enter data via the app.
 
 ### Run the app
 Download files from GitHub
 ```
-git clone https://github.com/Susannnnnna/Qt-PulseOximeterApp
+git clone https://github.com/Susannnnnna/Qt-BLEPulseSensor
 ```
 
 ## Documentation
