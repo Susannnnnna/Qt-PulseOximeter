@@ -1,15 +1,4 @@
 <!--![app-screen]()-->
-# To Do
-Frontend
-- Dane - dodać wyświetlanie się danych na liście
-- main.qml - dodać w menu bocznym nazwy modułów
-- main.qml - dodać w menu bocznym przełączanie się na inne ekrany
-- knowledge - wyśrodkować kafelki
-- knowledge - poprawić przewijanie tak, żeby po scrollowaniu zostawało na swoim miejscu
-
-Backend
-- 
-
 # App with Bluetooth Low Energy & Pulse Sensor
 ## Objective
 This project encompasses two key components:
